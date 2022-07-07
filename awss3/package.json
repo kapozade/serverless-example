@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "aws-sdk": "2.1024.0",
+    "dotenv": "^10.0.0",
+    "http-status-codes": "2.1.4",
+    "uuid": "8.3.2"
+  },
+  "devDependencies": {
+    "serverless-dotenv-plugin": "3.10.0",
+    "serverless-offline": "8.2.0",
+    "serverless-s3-local": "0.6.20"
+  }
+}

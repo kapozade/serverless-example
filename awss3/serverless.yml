@@ -1,0 +1,42 @@
+service: s3-example
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+
+custom:
+  s3:
+    host: localhost
+    directory: /tmp
+
+resources:
+  Resources:
+    NewResource:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${env:BUCKET_NAME}
+
+functions:
+  image:
+    handler: image.image
+    events:
+      - httpApi:
+          path: /api/v1/image
+          method: post
+  resize:
+    handler: resize.resize
+    events:
+      - s3:
+          bucket: ${env:BUCKET_NAME}
+          event: s3.ObjectCreated:*
+          rules:
+            - prefix: ${env:FOLDER}
+            - suffix: .jpg
+
+plugins:
+- serverless-s3-local
+- serverless-offline
+- serverless-dotenv-plugin

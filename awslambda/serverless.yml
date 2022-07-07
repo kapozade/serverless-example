@@ -1,0 +1,42 @@
+service: restapi-example
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+
+functions:
+  getById:
+    handler: handler.getByIdAsync
+    events:
+      - httpApi:
+          path: /api/v1/notes/{id}
+          method: get
+  getAll:
+    handler: handler.getAllAsync
+    events:
+      - httpApi:
+          path: /api/v1/notes
+          method: get
+  post:
+    handler: handler.postAsync
+    events:
+      - httpApi:
+          path: /api/v1/notes
+          method: post
+  put:
+    handler: handler.putAsync
+    events:
+      - httpApi:
+          path: /api/v1/notes/{id}
+          method: put
+  delete:
+    handler: handler.deleteAsync
+    events:
+      - httpApi:
+          path: /api/v1/notes/{id}
+          method: delete
+plugins:
+- serverless-offline
